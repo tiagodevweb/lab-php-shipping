@@ -1,0 +1,84 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h2>Regiões</h2>
+
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>CEP inicial</th>
+                    <th>CEP final</th>
+                    <th>Peso inicial</th>
+                    <th>Peso final</th>
+                    <th>Preço</th>
+                    <th>Transp.</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for carrierRange in carriersRange %}
+                    <tr>
+                        <td>{{ carrierRange.initialPostCode }}</td>
+                        <td>{{ carrierRange.finalPostCode }}</td>
+                        <td>{{ carrierRange.minWeight|number_format(3, '.', '') }}</td>
+                        <td>
+                            {% if carrierRange.maxWeight %}
+                                {{ carrierRange.maxWeight|number_format(3, '.', '') }}
+                            {% else %}
+                                Ilimitado
+                            {% endif %}
+                        </td>
+                        <td>{{ carrierRange.price|number_format(2, ',', '') }}</td>
+                        <td>{{ carrierRange.carrierName }}</td>
+                        <td>
+                            <a href="/regioes/editar/{{ carrierRange.id }}" class="btn btn-sm btn-info">Editar</a>
+                            <a href="/regioes/excluir/{{ carrierRange.id }}" class="btn btn-sm btn-danger">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <form action="/regioes" method="post">
+                <fieldset>
+                    <legend>Cadastrar</legend>
+                    <div class="form-group">
+                        <label for="initialPostCode">CEP inicial:</label>
+                        <input type="text" name="initialPostCode" class="form-control" id="initialPostCode">
+                    </div>
+                    <div class="form-group">
+                        <label for="finalPostCode">CEP final:</label>
+                        <input type="text" name="finalPostCode" class="form-control" id="finalPostCode">
+                    </div>
+                    <div class="form-group">
+                        <label for="minWeight">Peso mínimo</label>
+                        <input type="text" name="minWeight" class="form-control" id="minWeight">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxWeight">Peso máximo</label>
+                        <input type="text" name="maxWeight" class="form-control" id="maxWeight">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Preço</label>
+                        <input type="text" name="price" class="form-control" id="price">
+                    </div>
+                    <div class="form-group">
+                        <label for="carrierId">Transportadora:</label>
+                        <select name="carrierId" class="form-control" id="carrierId">
+                            <option value="">Selecione...</option>
+                            {% for carrier in carriers %}
+                                <option value="{{ carrier.id }}">{{ carrier.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h2>Opções de entrega</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Transportadora</th>
+                        <th>Preço(R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for carrierRangeSearch in carriersRangeSearch %}
+                    <tr>
+                        <td>{{ carrierRangeSearch.name }}</td>
+                        <td>{{ carrierRangeSearch.price|number_format(2, ',', '') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href="/" class="btn btn-default">Voltar</a>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h2>Regiões</h2>
+
+    <div class="row">
+        <div class="col-md-4">
+            <form action="/regioes/atualizar" method="post">
+                <fieldset>
+                    <legend>Editar</legend>
+                    <div class="form-group">
+                        <label for="initialPostCode">CEP inicial:</label>
+                        <input type="text" name="initialPostCode" class="form-control" id="initialPostCode" value="{{ initialPostCode }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="finalPostCode">CEP final:</label>
+                        <input type="text" name="finalPostCode" class="form-control" id="finalPostCode" value="{{ finalPostCode }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="minWeight">Peso mínimo</label>
+                        <input type="text" name="minWeight" class="form-control" id="minWeight" value="{{ minWeight }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxWeight">Peso máximo</label>
+                        <input type="text" name="maxWeight" class="form-control" id="maxWeight" value="{{ maxWeight }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Preço</label>
+                        <input type="text" name="price" class="form-control" id="price" value="{{ price }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="carrierId">Transportadora:</label>
+                        <select name="carrierId" class="form-control" id="carrierId">
+                            <option value="{{ carrierId }}">{{ carrierName }}</option>
+                            {% for carrier in carriers %}
+                                <option value="{{ carrier.id }}">{{ carrier.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <input type="hidden" name="id" value="{{ id }}">
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                    <a href="/regioes" class="btn btn-default">Voltar</a>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}

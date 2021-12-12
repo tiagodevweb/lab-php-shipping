@@ -1,0 +1,51 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h2>Transportadoras</h2>
+
+    <div class="row">
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Ativo</th>
+                    <th width="1%">Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for carrier in carriers %}
+                    <tr>
+                        <td>{{ carrier.name }}</td>
+                        <td>{{ carrier.active }}</td>
+                        <td>
+                            <a href="/transportadoras/editar/{{ carrier.id }}" class="btn btn-sm btn-info">Editar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <form action="/transportadoras" method="post">
+                <fieldset>
+                    <legend>Cadastrar</legend>
+                    <div class="form-group">
+                        <label for="name">Nome:</label>
+                        <input type="text" name="name" class="form-control" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="active">Ativo:</label>
+                        <select name="active" class="form-control" id="active">
+                            <option value="1">Sim</option>
+                            <option value="0">Não</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
